@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMAC Hashing</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <label for="inputText">Enter text to hash:</label>
+        <input type="text" id="inputText" class="form-control" placeholder="Enter text" oninput="generateHash()"><br>
+
+        <label for="secretKey">Enter Secret Key:</label>
+        <input type="text" id="secretKey" class="form-control" placeholder="Enter secret key"
+            oninput="generateHash()"><br>
+
+        <label for="hashMethod">Select hash method:</label>
+        <select id="hashMethod" class="form-control" onchange="generateHash()">
+            <option value="HMACMD5">HMAC-MD5</option>
+            <option value="HMACSHA1">HMAC-SHA-1</option>
+            <option value="HMACSHA3">HMAC-SHA-3</option>
+            <option value="HMACSHA224">HMAC-SHA-224</option>
+            <option value="HMACSHA256">HMAC-SHA-256</option>
+            <option value="HMACSHA384">HMAC-SHA-384</option>
+            <option value="HMACSHA512">HMAC-SHA-512</option>
+        </select><br>
+
+        <h2>Hash:</h2>
+        <textarea rows="4" cols="50" class="form-control" id="hashOutput" readonly></textarea>
+    </div>
+
+    <script>
+        function generateHash() {
+            const inputText = document.getElementById('inputText').value;
+            const secretKey = document.getElementById('secretKey').value;
+            const selectedMethod = document.getElementById('hashMethod').value;
+
+            const hashMethods = {
+                'HMACMD5': CryptoJS.HmacMD5,
+                'HMACSHA1': CryptoJS.HmacSHA1,
+                'HMACSHA3': CryptoJS.HmacSHA3,
+                'HMACSHA224': CryptoJS.HmacSHA224,
+                'HMACSHA256': CryptoJS.HmacSHA256,
+                'HMACSHA384': CryptoJS.HmacSHA384,
+                'HMACSHA512': CryptoJS.HmacSHA512
+            };
+
+            const selectedHashMethod = hashMethods[selectedMethod];
+
+            if (selectedHashMethod) {
+                const hash = selectedHashMethod(inputText, secretKey).toString(CryptoJS.enc.Hex);
+                document.getElementById('hashOutput').value = hash;
+            } else {
+                alert('Invalid hash method selected');
+            }
+        }
+    </script>
+</body>
+
+</html>

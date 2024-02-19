@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mã hoá văn bản</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.js"></script>
+
+</head>
+
+<body>
+    <h1>Mã hoá văn bản</h1>
+    <input type="text" id="inputText" placeholder="Nhập văn bản cần mã hoá"><br><br>
+    <button onclick="encryptText()">Mã hoá</button><br><br>
+    <div id="encryptedText"></div>
+
+    <script>
+        async function encryptText() {
+            const text = document.getElementById('inputText').value;
+
+            if (text.trim() === '') {
+                alert('Vui lòng nhập văn bản cần mã hoá');
+                return;
+            }
+
+            const hashedText = await bcrypt.hash(text, 10); // Mã hoá văn bản sử dụng bcrypt
+
+            document.getElementById('encryptedText').innerHTML = `<strong>Đoạn văn bản đã mã hoá:</strong><br>${hashedText}`;
+        }
+    </script>
+
+</body>
+
+</html>

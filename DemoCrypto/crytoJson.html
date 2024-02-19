@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Encrypt & Decrypt JSON Example</title>
+</head>
+
+<body>
+    <h1>Encrypt & Decrypt JSON Example using Crypto-JS</h1>
+
+    <label for="jsonInput">Nhập JSON cần mã hóa:</label>
+    <textarea id="jsonInput" rows="4" cols="50"></textarea><br><br>
+
+    <button onclick="encryptJSON()">Mã hóa JSON</button><br><br>
+
+    <h2>JSON Mã hóa:</h2>
+    <p id="encryptedJSONOutput"></p>
+    <p id="jsonSecretKeyOutput"></p>
+
+    <label for="encryptedJSONInput">Nhập chuỗi JSON đã mã hóa:</label>
+    <textarea id="encryptedJSONInput" rows="4" cols="50"></textarea><br><br>
+    <label for="jsonSecretKeyInput">Nhập secret key:</label>
+    <input type="text" id="jsonSecretKeyInput"><br><br>
+    <button onclick="decryptJSON()">Giải mã JSON</button><br><br>
+
+    <h2>JSON Giải mã:</h2>
+    <p id="decryptedJSONOutput"></p>
+
+    <script src="../node_modules/crypto-js/crypto-js.js"></script>
+    <script>
+        function encryptJSON() {
+            const jsonInput = document.getElementById('jsonInput').value;
+
+            const secretKey = CryptoJS.lib.WordArray.random(16).toString(CryptoJS.enc.Hex);
+            console.log('Secret Key:', secretKey);
+
+            const encryptedJSON = CryptoJS.AES.encrypt(jsonInput, secretKey).toString();
+            console.log('Chuỗi JSON đã mã hóa:', encryptedJSON);
+
+            document.getElementById('encryptedJSONOutput').innerHTML = `<strong>Encrypted JSON:</strong> <textarea  rows="4" cols="50">${encryptedJSON}</textarea>`;
+            document.getElementById('jsonSecretKeyOutput').innerHTML = `<strong>Secret Key:</strong> ${secretKey}`;
+        }
+
+        function decryptJSON() {
+            const encryptedJSONText = document.getElementById('encryptedJSONInput').value;
+            const secretKey = document.getElementById('jsonSecretKeyInput').value;
+
+            const decryptedJSON = CryptoJS.AES.decrypt(encryptedJSONText, secretKey).toString(CryptoJS.enc.Utf8);
+
+            document.getElementById('decryptedJSONOutput').innerHTML = `<strong>Decrypted JSON:</strong> ${decryptedJSON}`;
+        }
+    </script>
+</body>
+
+</html>
