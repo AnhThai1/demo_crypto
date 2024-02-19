@@ -10,14 +10,14 @@
 
 <body>
     <div class="container mt-5">
-        <label for="inputText">Enter text to hash:</label>
+        <label for="inputText">Nhập văn bản cần hash:</label>
         <input type="text" id="inputText" class="form-control" placeholder="Enter text" oninput="generateHash()"><br>
 
-        <label for="secretKey">Enter Secret Key:</label>
+        <label for="secretKey">Nhập Secret Key:</label>
         <input type="text" id="secretKey" class="form-control" placeholder="Enter secret key"
             oninput="generateHash()"><br>
 
-        <label for="hashMethod">Select hash method:</label>
+        <label for="hashMethod">Chọn phương thức hash:</label>
         <select id="hashMethod" class="form-control" onchange="generateHash()">
             <option value="HMACMD5">HMAC-MD5</option>
             <option value="HMACSHA1">HMAC-SHA-1</option>
